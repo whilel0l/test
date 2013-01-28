@@ -1,0 +1,132 @@
+sub magic;
+sub battleprocess;
+sub checkhit;
+sub command;
+print "プログラミングしますー";
+<STDIN>;
+print "がんばるぞー";
+<STDIN>;
+print "名前を入力してください";
+$name = <STDIN>;
+print "年齢を入力してください";
+$toshi = <STDIN>;
+print "性別を入力してください";
+$sex = <STDIN>;
+
+print $name,$toshi,$sex;
+<STDIN>;
+print "ですね";
+<STDIN>;
+print "わかりました。今からRPGゲームを始めます";
+<STDIN>;
+$enemyHP = int(rand 20) + 1;
+$MYHP = 30;
+
+sub magic{
+  print "Zキーギラ\n";
+	print "Xキーホイミ\n";
+	print "Cキーベギラマ\n";
+	print "Vキー戻る\n";
+	$check = <STDIN>;
+	if($check =~ /z/ || /Z/){
+		print "ギラを唱えた";
+		<STDIN>;
+		print "ギガッガッガガシャアン";
+		<STDIN>;
+		print "勇者の攻撃!";
+		<STDIN>;
+		$attuckpoint_Y = int(rand 7) + 5;
+		$enemyHP -= $attuckpoint_Y;
+		print $attuckpoint_Y;
+		print "ダメージ与えた";
+		<STDIN>;
+	}	
+	elsif($check =~ /x/ || /X/){
+		print "勇者はホイミをとなえた";
+		<STDIN>;
+		$recoverypoint = int(rand 3) + 1;
+		print "勇者の傷が癒されていく";
+		<STDIN>;
+		
+		$MYHP += $recoverypoint;
+		print $recoverypoint;
+		print "回復した";
+		<STDIN>;
+	}
+	elsif($check =~ /c/ || /C/){
+		print "ベギラマを唱えた";
+		<STDIN>;
+		print "ドカドカギガッガッガガシャアン";
+		<STDIN>;
+		print "勇者の攻撃!";
+		<STDIN>;
+		$attuckpoint_Y = int(rand 10) + 6;
+		$enemyHP -= $attuckpoint_Y;
+		print $attuckpoint_Y;
+		print "ダメージ与えた\n";
+		<STDIN>;	
+	}
+	elsif($check =~ /v/ || /V/){
+		command();	
+	}
+	else{print "コマンド？\n"; magic();}
+	command();
+		
+}
+
+sub battleprocess{
+		$attuckpoint = int(rand 3) + 1;
+		print "勇者の攻撃!";
+		<STDIN>;
+		$attuckpoint_Y = int(rand 5) + 1;
+		$enemyHP -= $attuckpoint_Y;
+		print $attuckpoint_Y;
+		print "ダメージ与えた";
+		<STDIN>;
+		print "敵の攻撃!";
+		<STDIN>;
+		$MYHP -= $attuckpoint;
+		print $attuckpoint;
+		print "ダメージくらった";
+		<STDIN>;
+		
+}
+
+sub checkhit{
+	$check = <STDIN>;
+	if($check =~ /z/ || /Z/){
+		battleprocess();
+	}	
+	elsif($check =~ /x/ || /X/){
+		magic();
+	}
+	elsif($check =~ /c/ || /C/){
+		exit;	
+	}
+	else { print "コマンド？\n"; checkhit(); } 
+	command();
+}
+
+sub command{
+	if($enemyHP <= 0){
+		print "貴方の勝ちです";
+		<STDIN>;
+		print "ゲームを終了します";
+		<STDIN>;
+		exit;	
+	}
+	elsif($MYHP <=0){
+		print "貴方は死にました";
+		<STDIN>;
+		print "ゲームを終了します";
+		<STDIN>;
+		exit;	
+	}
+	print "Zキーたたかう\n";
+	print "Xキー魔法（テスト中)\n";
+	print "Cキー逃げる\n";
+	checkhit();	
+}
+while(1){
+	command();	
+}
